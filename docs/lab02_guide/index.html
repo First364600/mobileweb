@@ -85,12 +85,30 @@
         }
 
         .nav-logo {
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--primary-color);
             display: flex;
             align-items: center;
             gap: 10px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        .nav-logo-img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 6px; /* ถ้าต้องการมุมโค้ง */
+        }
+
+        .nav-logo-text {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /* เลือกซ่อนข้อความบนจอเล็ก (ถ้าต้องการ) */
+        @media (max-width: 480px) {
+            .nav-logo-text { display: none; }
+            .nav-logo-img { width: 36px; height: 36px; }
         }
 
         nav ul {
@@ -531,8 +549,9 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-logo">
-            <i class="fas fa-university"></i> KKU GUIDE
-        </div>
+          <img src="/assets/logo-CmeGMwTe.png" alt="KKU GUIDE" class="nav-logo-img">
+          <span class="nav-logo-text">KKU GUIDE</span>
+      </div>
         <ul>
             <li><a href="#home">หน้าหลัก</a></li>
             <li><a href="#locations">สถานที่</a></li>
