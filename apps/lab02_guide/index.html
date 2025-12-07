@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KKU Campus Guide - Auto Slide Edition</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&family=Sarabun:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 1. Variables & Reset --- */
+        :root {
+            --primary-color: #A73B24; /* สีอิฐ มข. */
+            --primary-dark: #8a2f1b;
+            --accent-color: #FFC107; /* สีทอง */
+            --text-color: #333;
+            --bg-color: #f8f9fa;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.15);
+            --shadow-hover: 0 20px 40px rgba(167, 59, 36, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, nav a, .btn {
+            font-family: 'Prompt', sans-serif;
+        }
+
+        /* --- 2. Dynamic Background & Scrollbar --- */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(167, 59, 36, 0.05), transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        /* --- 3. Premium Navbar --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* --- 4. Hero Section with Canvas --- */
+        header {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #2b0f0a, #A73B24);
+            color: white;
+            overflow: hidden;
+        }
+
+        #heroCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.6;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            animation: fadeUp 1s ease-out;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            background: linear-gradient(to right, #fff, #FFC107);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+        }
+
+        .btn-hero {
+            display: inline-block;
+            padding: 15px 40px;
+            background: white;
+            color: var(--primary-color);
+            font-weight: bold;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s transform;
+        }
+
+        .btn-hero:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            background: var(--accent-color);
+            color: #fff;
+        }
+
+        /* --- 5. Main Layout --- */
+        main {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section-header::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--accent-color);
+            margin: 20px auto 0;
+            border-radius: 2px;
+        }
+
+        /* --- 6. Student Info Card --- */
+        .student-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 80px;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .student-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .student-icon {
+            font-size: 4rem;
+            color: var(--primary-color);
+            background: rgba(167, 59, 36, 0.1);
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        /* --- 7. Location Grid (Masonry Style & Gallery) --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* New Gallery Styles */
+        .card-img-wrapper {
+            position: relative;
+            height: 240px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .card-gallery {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+            scroll-behavior: smooth; /* Essential for smooth JS scrolling */
+        }
+
+        .card-gallery::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
+        .card-gallery img {
+            min-width: 100%;
+            height: 100%;
+            object-fit: cover;
+            scroll-snap-align: start;
+            /* Remove transform hover here as it conflicts with scroll */
+        }
+
+        /* Progress Dots for Gallery */
+        .gallery-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 5px;
+            z-index: 10;
+        }
+
+        .gallery-dot {
+            width: 8px;
+            height: 8px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        .gallery-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            z-index: 10;
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .card-btn {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+            font-weight: 700;
+            text-decoration: none;
+            gap: 5px;
+            transition: gap 0.3s;
+            margin-top: auto;
+        }
+
+        .card-btn:hover {
+            gap: 10px;
+        }
+
+        /* --- 8. Contact Form (Glassmorphism) --- */
+        .contact-section {
+            background: linear-gradient(135deg, #A73B24 0%, #2b0f0a 100%);
+            padding: 80px 20px;
+            border-radius: 30px;
+            color: white;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .form-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            background: rgba(255,255,255,0.15);
+            border-color: var(--accent-color);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: var(--accent-color);
+            border: none;
+            border-radius: 10px;
+            color: #333;
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            background: white;
+        }
+
+        /* --- 9. Footer --- */
+        footer {
+            background: #222;
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- 10. Animations --- */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            nav { padding: 1rem; flex-direction: column; gap: 15px; }
+            .grid-container { grid-template-columns: 1fr; }
+            .student-card { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-logo">
+            <i class="fas fa-university"></i> KKU GUIDE
+        </div>
+        <ul>
+            <li><a href="#home">หน้าหลัก</a></li>
+            <li><a href="#locations">สถานที่</a></li>
+            <li><a href="#contact">แนะนำ</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home">
+        <canvas id="heroCanvas"></canvas>
+        <div class="hero-content">
+            <h1 class="hero-title">KKU CAMPUS GUIDE</h1>
+            <p class="hero-subtitle">เปิดประสบการณ์ใหม่ในการสำรวจมหาวิทยาลัยขอนแก่น</p>
+            <a href="#locations" class="btn-hero">เริ่มการสำรวจ <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Student Info -->
+        <div class="student-card reveal">
+            <div class="student-icon">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <div>
+                <h3>ผู้จัดทำ</h3>
+                <p style="font-size: 1.1rem; margin: 5px 0;"><strong>นายวัชรวิศว์ ชัยปลื้ม</strong></p>
+                <p style="color: #666;">รหัสนักศึกษา: 663380023-1</p>
+                <p style="color: var(--primary-color);">วิชา Mobile Web Application Development</p>
+            </div>
+        </div>
+
+        <!-- Locations Grid -->
+        <section id="locations">
+            <div class="section-header reveal">
+                <h2>สถานที่ยอดนิยม</h2>
+                <p>รวบรวมสถานที่ที่เป็นเอกลักษณ์และมีความสำคัญภายในรั้วมอดินแดง</p>
+            </div>
+
+            <div class="grid-container">
+                <!-- Card 1: Spirit House -->
+                <article class="card reveal">
+                    <div class="card-img-wrapper" id="gallery-wrapper-1">
+                        <span class="card-badge">Landmark</span>
+                        <div class="card-gallery" id="gallery-1">
+                            <img src="https://kku.ac.th/wp-content/uploads/2019/11/1-2.jpg" alt="ศาลเจ้าพ่อ 1">
+                            <img src="https://kku.ac.th/wp-content/uploads/2019/11/73388389_1126681251015692_3940284704808239104_o.jpg" alt="ศาลเจ้าพ่อ 2">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfrj9xD-aaVhqSwhAgzUl5pt86RrqvcGwiVg&s" alt="ศาลเจ้าพ่อ 3">
+                        </div>
+                        <div class="gallery-dots" id="dots-1"></div>
+                    </div>
+                    <div class="card-content">
+                        <h3><i class="fas fa-gopuram"></i> ศาลเจ้าพ่อมอดินแดง</h3>
+                        <p>ศูนย์รวมจิตใจของชาว มข. เป็นสถานที่ศักดิ์สิทธิ์ที่นักศึกษาและบุคลากรให้ความเคารพนับถือ บรรยากาศร่มรื่น สงบ เหมาะแก่การมาสักการะบูชาเพื่อความเป็นสิริมงคล</p>
+                        <a href="#" class="card-btn">ดูรายละเอียด <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Card 2: Sithan Lake -->
+                <article class="card reveal">
+                    <div class="card-img-wrapper" id="gallery-wrapper-2">
+                        <span class="card-badge">Relax</span>
+                        <div class="card-gallery" id="gallery-2">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAwtzp4hVdwDP47Dnhsc3p9pvN5_2DshAWzw&s" alt="บึงสีฐาน 1">
+                            <img src="https://ddq1mzvkg4fn7.cloudfront.net/2023/09/----------6.jpg" alt="บึงสีฐาน 2">
+                        </div>
+                        <div class="gallery-dots" id="dots-2"></div>
+                    </div>
+                    <div class="card-content">
+                        <h3><i class="fas fa-water"></i> บึงสีฐาน</h3>
+                        <p>ปอดขนาดใหญ่ของมหาวิทยาลัย สถานที่พักผ่อนยอดนิยมสำหรับการวิ่งออกกำลังกายยามเย็น ชมพระอาทิตย์ตกดิน และเป็นสถานที่หลักในการจัดงานลอยกระทง</p>
+                        <a href="#" class="card-btn">ดูรายละเอียด <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Card 3: Library -->
+                <article class="card reveal">
+                    <div class="card-img-wrapper" id="gallery-wrapper-3">
+                        <span class="card-badge">Knowledge</span>
+                        <div class="card-gallery" id="gallery-3">
+                            <img src="https://library.kku.ac.th/wp-content/uploads/2023/06/2222-1024x576.png" alt="หอสมุด 1">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVMICLnYJv6uut750ettXyYNo2AXIC3VfmmQ&s" alt="หอสมุด 2">
+                        </div>
+                        <div class="gallery-dots" id="dots-3"></div>
+                    </div>
+                    <div class="card-content">
+                        <h3><i class="fas fa-book-reader"></i> หอสมุดกลาง</h3>
+                        <p>แหล่งเรียนรู้ที่ทันสมัย มีพื้นที่ Co-working space หลากหลายโซน ทั้งโซนเงียบและโซนทำงานกลุ่ม เปิดให้บริการ 24 ชม. ในช่วงสอบ</p>
+                        <a href="#" class="card-btn">ดูรายละเอียด <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Card 4: Complex -->
+                <article class="card reveal">
+                    <div class="card-img-wrapper" id="gallery-wrapper-4">
+                        <span class="card-badge">Lifestyle</span>
+                        <div class="card-gallery" id="gallery-4">
+                            <img src="https://asset.kku.ac.th/wp-content/uploads/2022/04/%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%9A%E0%B8%A3%E0%B8%B4%E0%B8%81%E0%B8%B2%E0%B8%A3-1-%E0%B8%84%E0%B8%AD%E0%B8%A1%E0%B9%80%E0%B8%9E%E0%B8%A5%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C-%E0%B8%99.%E0%B8%AA.%E0%B8%88%E0%B8%B8%E0%B8%91%E0%B8%B2%E0%B8%A3%E0%B8%B1%E0%B8%95%E0%B8%99%E0%B9%8C-%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%AA%E0%B8%81%E0%B8%B8%E0%B8%A5-5-1024x768.jpg" alt="คอมเพล็กซ์ 1">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaEvjTQ2Cr2ZL4Nc5xZwHZwwaMEXOh2z2xbw&s" alt="คอมเพล็กซ์ 2">
+                        </div>
+                        <div class="gallery-dots" id="dots-4"></div>
+                    </div>
+                    <div class="card-content">
+                        <h3><i class="fas fa-utensils"></i> คอมเพล็กซ์</h3>
+                        <p>ศูนย์กลางอาหารและบริการ แหล่งนัดพบยอดฮิตของนักศึกษา มีครบทั้งร้านอาหารราคาย่อมเยา ร้านกาแฟ ธนาคาร ร้านหนังสือ และร้านสะดวกซื้อ</p>
+                        <a href="#" class="card-btn">ดูรายละเอียด <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Contact Form -->
+        <section id="contact" class="contact-section reveal">
+            <div class="section-header" style="color: white;">
+                <h2 style="color: white;">แนะนำสถานที่</h2>
+                <p style="color: rgba(255,255,255,0.8);">หากคุณมีสถานที่ลับ หรือมุมโปรดใน มข. บอกให้เรารู้</p>
+            </div>
+
+            <div class="form-wrapper">
+                <form action="https://api.web3forms.com/submit" method="POST">
+                    <input type="hidden" name="access_key" value="245ade9b-ab29-4350-98c9-2be38822ea0f">
+                    
+                    <div class="form-group">
+                        <label>ชื่อสถานที่</label>
+                        <input type="text" name="place" class="form-control" placeholder="เช่น สวนร่มสัก" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>รายละเอียด</label>
+                        <textarea name="message" rows="4" class="form-control" placeholder="บรรยากาศเป็นอย่างไร..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>ลิงก์รูปภาพ (ถ้ามี)</label>
+                        <input type="url" name="url" class="form-control" placeholder="https://...">
+                    </div>
+
+                    <button type="submit" class="btn-submit">ส่งข้อมูลแนะนำ <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+        <p>&copy; 2024 KKU Campus Guide Premium. Designed with <i class="fas fa-heart" style="color: var(--primary-color);"></i> by Student.</p>
+    </footer>
+
+    <script>
+        // --- 1. Advanced Canvas Animation (Particle Network) ---
+        const canvas = document.getElementById('heroCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let particles = [];
+        
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 1.5;
+                this.vy = (Math.random() - 0.5) * 1.5;
+                this.size = Math.random() * 3 + 1;
+                this.color = `rgba(255, 193, 7, ${Math.random() * 0.5 + 0.2})`; // Goldish
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        // Init Particles
+        for (let i = 0; i < 80; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            particles.forEach((p, index) => {
+                p.update();
+                p.draw();
+
+                // Draw lines between nearby particles
+                for (let j = index + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${1 - dist/150})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            });
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // --- 2. Scroll Reveal Animation ---
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 150;
+
+            revealElements.forEach((el) => {
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    el.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // --- 3. Auto Sliding Gallery ---
+        const galleries = document.querySelectorAll('.card-gallery');
+
+        galleries.forEach((gallery, index) => {
+            const images = gallery.querySelectorAll('img');
+            const dotsContainer = gallery.parentElement.querySelector('.gallery-dots');
+            const slideCount = images.length;
+            let currentIndex = 0;
+            let intervalId;
+
+            // Create dots
+            for(let i=0; i<slideCount; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('gallery-dot');
+                if(i === 0) dot.classList.add('active');
+                dotsContainer.appendChild(dot);
+            }
+
+            const dots = dotsContainer.querySelectorAll('.gallery-dot');
+
+            const updateActiveDot = (idx) => {
+                dots.forEach(d => d.classList.remove('active'));
+                dots[idx].classList.add('active');
+            }
+
+            const scrollToIndex = (idx) => {
+                gallery.scrollTo({
+                    left: gallery.clientWidth * idx,
+                    behavior: 'smooth'
+                });
+                updateActiveDot(idx);
+                currentIndex = idx;
+            };
+
+            const startAutoSlide = () => {
+                intervalId = setInterval(() => {
+                    currentIndex = (currentIndex + 1) % slideCount;
+                    scrollToIndex(currentIndex);
+                }, 3000); // 3 seconds per slide
+            };
+
+            // Start loop
+            startAutoSlide();
+
+            // Pause on hover
+            gallery.parentElement.addEventListener('mouseenter', () => clearInterval(intervalId));
+            gallery.parentElement.addEventListener('mouseleave', startAutoSlide);
+            
+            // Manual Scroll Update (Optional logic to sync manual scrolling)
+            gallery.addEventListener('scroll', () => {
+                const scrollPos = gallery.scrollLeft;
+                const width = gallery.clientWidth;
+                const newIndex = Math.round(scrollPos / width);
+                if (newIndex !== currentIndex) {
+                    currentIndex = newIndex;
+                    updateActiveDot(currentIndex);
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
