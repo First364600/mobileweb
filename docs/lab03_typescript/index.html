@@ -25,11 +25,39 @@
             placeholder="Student ID"
           />
         </div>
-        <div class="col-md-2">
- เพิ่ม title_name,first_name,last_name, email ให้ครบ
-          <input />
+        <div class="col-md-1">
+          <input 
+            id="title_name",
+            type="text",
+            class="form-control",
+            placeholder="Title name"
+          />
         </div>
         <div class="col-md-2">
+            <input 
+                id="first_name",
+                type="text",
+                class="form-control",
+                placeholder="First name"
+            />
+        </div>
+        <div class="col-md-3">
+            <input 
+                id="last_name",
+                type="text",
+                class="form-control",
+                placeholder="Last name"
+            >
+        </div>
+        <div class="col-md-4">
+            <input 
+                id="email",
+                type="text",
+                class="form-control",
+                placeholder="Email"
+            />
+        </div>
+        <div class="col-md-5">
           <input
             id="year"
             type="number"
@@ -37,7 +65,7 @@
             placeholder="ชั้นปี"
           />
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
           <input
             id="major"
             type="text"
@@ -76,8 +104,20 @@
         <button id="searchMajorBtn" class="btn btn-warning">ค้นหา</button>
       </div>
     </div>
+    <div class="card p-3 mb4">
+        <h5>🔍 ค้นหาด้วยอีเมล</h5>
+        <div class="input-group">
+            <input 
+                id="searchEmail"
+                type="text"
+                class="form-control"
+                placeholder="ป้อนอีเมลที่ต้องการ"
+            />
+            <button id="searchEmailBtn" class="btn btn-success">ค้นหา</button>
+        </div>
+    </div>
 
-
+    
     <table class="table table-bordered table-striped">
       <thead>
         <tr>

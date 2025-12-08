@@ -15,6 +15,8 @@ function renderTable(elementId = "studentTableBody") {
             <td>${s.first_name}</td>
             <td>${s.last_name}</td>
             <td>${s.email}</td>
+            <td>${s.year}</td>
+            <td>${s.major}</td>
         </tr>
         `;
     });
