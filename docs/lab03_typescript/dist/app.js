@@ -38,18 +38,18 @@ document.getElementById("searchNameBtn").onclick = () => {
     const keyword = document.getElementById("searchName").value;
     const results = manager.findStudentsByFirstName(keyword);
     showList(results);
-    alert(`ผลการค้นหา: ${results.length} คน`);
+    alert(`ผลการค้นหา: ${results.map(s => s.first_name).join(`, `)}`);
 };
 document.getElementById("searchMajorBtn").onclick = () => {
     const keyword = document.getElementById("searchMajor").value;
     const results = manager.findStduentsByMajor(keyword);
     showList(results);
-    alert(`พบในสาขา: ${results.length} คน`);
+    alert(`พบในสาขา: ${results.map(s => s.first_name).join(`, `)}`);
 };
 document.getElementById("searchEmailBtn").onclick = () => {
     const keyword = document.getElementById("searchEmail").value;
     const results = manager.findStudentsByEmail(keyword);
     showList(results);
-    alert(`พบในอีเมล: ${results.length} คน`);
+    alert(`พบในอีเมล: ${results.map(s => s.first_name).join(`, `)}`);
 };
 renderTable("studentTableBody");

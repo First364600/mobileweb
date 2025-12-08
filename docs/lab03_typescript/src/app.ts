@@ -44,21 +44,21 @@ function renderTable(elementId: string = "studentTableBody"): void {
     const keyword = (document.getElementById("searchName") as HTMLInputElement).value;
     const results = manager.findStudentsByFirstName(keyword);
     showList<Student>(results);
-    alert(`ผลการค้นหา: ${results.length} คน`);
+    alert(`ผลการค้นหา: ${results.map(s => s.first_name).join(`, `)}`);
 };
 
 (document.getElementById("searchMajorBtn") as HTMLButtonElement).onclick = () => {
     const keyword = (document.getElementById("searchMajor") as HTMLInputElement).value;
     const results = manager.findStduentsByMajor(keyword);
     showList<Student>(results);
-    alert(`พบในสาขา: ${results.length} คน`);
+    alert(`พบในสาขา: ${results.map(s => s.first_name).join(`, `)}`);
 };
 
 (document.getElementById("searchEmailBtn") as HTMLButtonElement).onclick = () => {
     const keyword = (document.getElementById("searchEmail") as HTMLInputElement).value;
     const results = manager.findStudentsByEmail(keyword);
     showList<Student>(results);
-    alert(`พบในอีเมล: ${results.length} คน`);
+    alert(`พบในอีเมล: ${results.map(s => s.first_name).join(`, `)}`);
 };
 
 
