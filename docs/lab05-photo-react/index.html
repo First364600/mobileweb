@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 5: Photo Gallery - Portfolio</title>
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .description {
+            margin-bottom: 30px;
+            line-height: 1.6;
+            color: #555;
+        }
+        .screenshot-container {
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .screenshot-container img {
+            max-width: 100%;
+            height: auto;
+            max-height: 500px; /* จำกัดความสูงไม่ให้ยาวเกินไป */
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .btn-download {
+            display: inline-block;
+            background-color: #3880ff; /* สีฟ้าสไตล์ Ionic */
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        .btn-download:hover {
+            background-color: #3171e0;
+        }
+        .back-link {
+            display: block;
+            margin-top: 30px;
+            color: #666;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <!-- Import Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
+  <script async type="module" crossorigin src="/assets/index-6F3hq9O7.js"></script>
+  <script type="module">import.meta.url;import("_").catch(()=>1);(async function*(){})().next();if(location.protocol!="file:"){window.__vite_is_modern_browser=true}</script>
+  <script type="module">!function(){if(window.__vite_is_modern_browser)return;console.warn("vite: loading legacy chunks, syntax error above and the same error below should be ignored");var e=document.getElementById("vite-legacy-polyfill"),n=document.createElement("script");n.src=e.src,n.onload=function(){System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))},document.body.appendChild(n)}();</script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Lab 5: Photo Gallery App (React)</h1>
+        <p class="description">
+            แอปพลิเคชันแกลเลอรีรูปภาพ พัฒนาโดยใช้ Ionic Framework ร่วมกับ react <br>
+            สามารถถ่ายภาพด้วยกล้องมือถือ บันทึกลงในเครื่อง และแสดงผลในรูปแบบ Grid ได้
+            <br><br>
+            <strong>ผู้จัดทำ:</strong> วัชรวิศว์ ชัยปลื้ม (รหัส 663380023-1)
+        </p>
+
+        <!-- ส่วนแสดงรูปตัวอย่าง -->
+        <div class="screenshot-container">
+            <!-- นำรูป screenshot ของคุณมาวางแล้วแก้ชื่อไฟล์ตรง src -->
+            <img src="./assets/screenshot-dBjFa8HB.png" alt="ตัวอย่างหน้าจอแอปพลิเคชัน" onerror="this.src='https://placehold.co/300x600?text=Screenshot+Here'">
+            <p style="font-size: 0.9em; color: #888;">(ตัวอย่างหน้าจอการทำงาน)</p>
+        </div>
+
+        <!-- ปุ่ม Download APK -->
+        <div style="margin-top: 20px;">
+            <h3>ดาวน์โหลดแอปพลิเคชัน</h3>
+            <!-- นำไฟล์ .apk มาวางแล้วแก้ชื่อไฟล์ตรง href -->
+            <a href="./app-release.apk" class="btn-download" download>
+                Download .APK File
+            </a>
+            <p style="font-size: 0.8em; color: red; margin-top: 10px;">
+                *สำหรับ Android เท่านั้น
+            </p>
+        </div>
+
+    </div>
+
+  <script nomodule>!function(){var e=document,t=e.createElement("script");if(!("noModule"in t)&&"onbeforeload"in t){var n=!1;e.addEventListener("beforeload",(function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()}),!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove()}}();</script>
+  <script nomodule crossorigin id="vite-legacy-polyfill" src="/assets/polyfills-legacy-Bj7NGYSK.js"></script>
+  <script nomodule crossorigin id="vite-legacy-entry" data-src="/assets/index-legacy-CnvmjJHj.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
+</body>
+</html>
