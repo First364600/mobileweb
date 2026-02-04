@@ -1,0 +1,7 @@
+{
+  "name": "lab06_firebase",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
