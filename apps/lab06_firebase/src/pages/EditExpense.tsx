@@ -24,10 +24,11 @@ import {
   IonToolbar,
   useIonRouter
 } from '@ionic/react';
-import React, { use, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
+import {useParams} from 'react-router-dom';
 import { db } from '../firebase';
-import { collection, addDoc} from "firebase/firestore";
-import './AddExpense.css';
+import { collection, addDoc, updateDoc} from "firebase/firestore";
+import './EditExpense.css';
 import {
   closeOutline,
   pricetagOutline,
@@ -35,32 +36,72 @@ import {
   createOutline,
   settings
 } from 'ionicons/icons';
-import { createExpense } from '../services/expenseService';
+import { createExpense, updateExpense, getExpenseById } from '../services/expenseService';
 import { ExpenseInput } from '../models/Expense';
 
-const AddExpense: React.FC = () => {
+const EditExpense: React.FC = () => {
 
   const router = useIonRouter();
+  const { id } = useParams<{id: string}>();
+
   const [title, setTitle] = useState<string>('');
   const [amount, setAmount] = useState<string>('');
   const [type, setType] = useState<'Revenue' | 'Expense'>('Revenue');
   const [category, setCategory] = useState<string>('Food');
   const [note, setNote] = useState<string>('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchExpense = async () => {
+      if (!id) {
+        setError("ไม่พบ ID รายการ");
+        setLoading(false);
+        return;
+      }
+
+      try {
+        console.log('loading expense:', id);
+        const expense = await getExpenseById(id);
+
+        if (expense) {
+          setTitle(expense.title);
+          setAmount(expense.amount.toString());
+          setType(expense.type);
+          setCategory(expense.category);
+          console.log('expense loaded:', expense);
+        } else {
+          setError('ไม่พบรายการที่ต้องการแก้ไข');
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchExpense();
+  }, [id]);
 
   const handleSave = async () => {
     if (!title || !amount) {
       console.warn("กรุณากรอกข้อมูลให้ครบถ้วน");
       return;
     }
+
+    if (!id) {
+      alert('ไม่พบ ID รายการ');
+      return;
+    }
     console.log({ title, amount, type, category, note});
     
+  
     try {
-      await createExpense({
+      await updateExpense(
+        id, {
         title,
         amount: Number(amount),
         type,
         category,
-        note
+        note 
       });
       
       router.push('/home');
@@ -83,7 +124,7 @@ const AddExpense: React.FC = () => {
               <IonIcon slot='icon-only' icon={closeOutline}/>
             </IonButton>
           </IonButtons>
-          <IonTitle>เพื่มรายการ</IonTitle>
+          <IonTitle>แก้ไขรายการ</IonTitle>
           <IonButtons slot='end'>
             <IonButton strong={true} color='primary' onClick={handleSave}>
               บันทึก
@@ -166,4 +207,4 @@ const AddExpense: React.FC = () => {
   );
 };
 
-export default AddExpense;
+export default EditExpense;

@@ -33,6 +33,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import EditExpense from './pages/EditExpense';
 
 setupIonicReact();
 
@@ -46,6 +47,7 @@ const App: React.FC = () => (
         <Route exact path="/add-expense">
           <AddExpense/>
         </Route>
+        <Route exact path="/edit-expense/:id" component={EditExpense} exact/>
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>

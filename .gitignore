@@ -21,3 +21,4 @@ logs/
 .capacitor/
 .vite/
 *.local
+apps/lab06_firebase/src/firebase.ts
