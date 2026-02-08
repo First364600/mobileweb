@@ -36,10 +36,9 @@ import './theme/variables.css';
 import EditExpense from './pages/EditExpense';
 
 setupIonicReact();
-
 const App: React.FC = () => (
   <IonApp>
-    <IonReactRouter>
+    <IonReactRouter basename='/apps//lab06_firebase'>
       <IonRouterOutlet>
         <Route exact path="/home">
           <Home />
@@ -47,7 +46,7 @@ const App: React.FC = () => (
         <Route exact path="/add-expense">
           <AddExpense/>
         </Route>
-        <Route exact path="/edit-expense/:id" component={EditExpense} exact/>
+        <Route exact path="/edit-expense/:id" component={EditExpense}/>
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>

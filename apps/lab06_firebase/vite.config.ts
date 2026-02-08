@@ -20,6 +20,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  base: '/apps/lab06_firebase/',
   test: {
     globals: true,
     environment: 'jsdom',
