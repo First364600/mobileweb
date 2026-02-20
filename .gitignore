@@ -21,4 +21,4 @@ logs/
 .capacitor/
 .vite/
 *.local
-apps/lab06_firebase/src/firebase.ts
+apps/lab08-ai-vue/src/core/firebase.ts
