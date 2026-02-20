@@ -9,8 +9,13 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [
     vue(),
-    legacy()
+    legacy(),
   ],
+  base: './',
+  build: {
+    outDir: path.resolve(__dirname, '../../docs/lab08-ai-vue'),
+    emptyOutDir: true
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
