@@ -2,9 +2,9 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAEx1Hgtn0kcxElG3RzjmPl5PqPjVmn_Bs",
+    apiKey: "xxx",
     authDomain: "https://accounts.google.com/o/oauth2/auth",
-    projectId: "mobile-and-web-7a140"
+    projectId: "xxx"
 };
 
 const app = initializeApp(firebaseConfig);
