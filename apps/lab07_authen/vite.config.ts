@@ -11,6 +11,16 @@ export default defineConfig({
     react(),
     legacy()
   ],  
+  base: './',
+  build: {
+    outDir: path.resolve(__dirname, '../../docs/lab07_authen'),
+    emptyOutDir: true
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
   test: {
     globals: true,
     environment: 'jsdom',

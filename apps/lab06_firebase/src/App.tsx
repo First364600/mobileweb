@@ -1,6 +1,6 @@
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
+import { IonReactHashRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 import AddExpense from './pages/AddExpense';
 
@@ -38,7 +38,7 @@ import EditExpense from './pages/EditExpense';
 setupIonicReact();
 const App: React.FC = () => (
   <IonApp>
-    <IonReactRouter basename='/apps//lab06_firebase'>
+    <IonReactHashRouter basename='/apps//lab06_firebase'>
       <IonRouterOutlet>
         <Route exact path="/home">
           <Home />
@@ -51,7 +51,7 @@ const App: React.FC = () => (
           <Redirect to="/home" />
         </Route>
       </IonRouterOutlet>
-    </IonReactRouter>
+    </IonReactHashRouter>
   </IonApp>
 );
 

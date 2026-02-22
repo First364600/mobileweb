@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { IonRouterOutlet } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
+import { IonReactHashRouter } from '@ionic/react-router';
 
 import LoginPage from '../pages/Login';
 import Tab1 from '../pages/Tab1';
@@ -12,7 +12,7 @@ const AppRouter: React.FC = () => {
   const { user } = useAuth(); 
 
   return (
-    <IonReactRouter>
+    <IonReactHashRouter>
       <IonRouterOutlet>
         <Route exact path="/login">
           {user ? <Redirect to="/tabs/tab1" /> : <LoginPage />}
@@ -26,7 +26,7 @@ const AppRouter: React.FC = () => {
           <Redirect to="/tabs/tab1" />
         </Route>
       </IonRouterOutlet>
-    </IonReactRouter>
+    </IonReactHashRouter>
   );
 };
 
